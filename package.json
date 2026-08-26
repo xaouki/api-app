@@ -1,0 +1,20 @@
+{
+  "name": "sms-api-sender",
+  "version": "1.0.0",
+  "description": "Generic desktop SMS API client for sending messages to authorized recipients.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.xaouki.smsapisender",
+    "productName": "SMS API Sender",
+    "files": ["main.js", "preload.js", "renderer/**/*"],
+    "win": { "target": "nsis" }
+  }
+}
