@@ -1,0 +1,6 @@
+{
+  "appId": "com.xaouki.mainesmsapisender",
+  "appName": "Maine SMS API Sender",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
