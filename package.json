@@ -1,20 +1,23 @@
 {
-  "name": "sms-api-sender",
+  "name": "maine-sms-api-sender",
   "version": "1.0.0",
-  "description": "Generic desktop SMS API client for sending messages to authorized recipients.",
+  "description": "Simple Windows desktop SMS sender powered by MoceanAPI.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
+  },
+  "dependencies": {
+    "mocean-sdk": "^2.2.3"
   },
   "devDependencies": {
     "electron": "^37.2.6",
     "electron-builder": "^26.0.12"
   },
   "build": {
-    "appId": "com.xaouki.smsapisender",
-    "productName": "SMS API Sender",
-    "files": ["main.js", "preload.js", "renderer/**/*"],
+    "appId": "com.xaouki.mainesmsapisender",
+    "productName": "Maine SMS API Sender",
+    "files": ["main.js", "preload.js", "renderer/**/*", "package.json"],
     "win": { "target": "nsis" }
   }
 }
