@@ -3,53 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SMS API Sender</title>
+  <title>Maine SMS API Sender</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
-    <div><div class="brand">SMS API Sender</div><div class="sub">Generic REST client</div></div>
-    <div class="top-actions"><button id="saveProfile" class="ghost">Save profile</button><button id="clearAll" class="ghost">Clear</button></div>
+    <div class="brand-wrap">
+      <div class="logo">M</div>
+      <div><div class="brand">Maine SMS API Sender</div><div class="sub">Simple MoceanAPI desktop sender</div></div>
+    </div>
+    <button id="clearAll" class="ghost">Clear</button>
   </header>
-  <main class="layout">
-    <aside class="sidebar">
-      <div class="side-title">Configuration</div>
-      <label>API URL<input id="apiUrl" placeholder="https://api.example.com/send"></label>
-      <label>Method<select id="method"><option>POST</option><option>PUT</option><option>PATCH</option></select></label>
-      <label>Authentication<select id="authType"><option value="none">None</option><option value="bearer">Bearer token</option><option value="apiKey">API key header</option></select></label>
-      <label id="tokenLabel">Token / API Key<input id="token" type="password" placeholder="Enter your credential"></label>
-      <label id="apiKeyHeaderLabel" class="hidden">API key header name<input id="apiKeyHeader" value="X-API-Key"></label>
-      <label>Content-Type<select id="contentType"><option value="application/json">application/json</option><option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option></select></label>
-      <label>Recipient field<input id="toField" value="to"></label>
-      <label>Message field<input id="messageField" value="message"></label>
-      <label>Sender field (optional)<input id="senderField" value="from"></label>
-      <label>Sender ID / Number<input id="senderValue" placeholder="Your sender ID"></label>
-      <label>Extra JSON fields<textarea id="extraFields" rows="4" placeholder='{"campaign":"MyCampaign"}'></textarea></label>
-      <label>Delay between requests (ms)<input id="delay" type="number" min="0" value="500"></label>
-      <div class="notice">Only send to recipients you are authorized to contact and follow your provider's rate limits and local messaging rules.</div>
-    </aside>
-    <section class="content">
-      <div class="grid">
-        <section class="card">
-          <div class="card-head"><h2>Recipients</h2><span id="recipientCount">0 numbers</span></div>
-          <textarea id="recipients" class="big-input" placeholder="+14155550100\n+14155550101\n+14155550102"></textarea>
-          <div class="row"><label class="file-btn">Import TXT / CSV<input id="fileInput" type="file" accept=".txt,.csv"></label><button id="dedupe" class="secondary">Remove duplicates</button></div>
-        </section>
-        <section class="card">
-          <div class="card-head"><h2>Message</h2><span id="charCount">0 characters</span></div>
-          <textarea id="message" class="big-input message" maxlength="1600" placeholder="Type the message to send..."></textarea>
-          <div class="preview">Preview: <strong id="previewText">Your message will appear here.</strong></div>
-        </section>
+
+  <main class="page">
+    <section class="setup card">
+      <div class="section-title"><div><h1>Send SMS</h1><p>Connect your MoceanAPI account and start a campaign.</p></div><span class="badge">MoceanAPI</span></div>
+      <div class="credentials">
+        <label>MoceanAPI Token<input id="token" type="password" autocomplete="off" placeholder="Paste your API token"></label>
+        <label>Company / Sender Name<input id="sender" maxlength="15" placeholder="Your company name"></label>
       </div>
-      <section class="card controls">
-        <div class="test-row"><label>Test number<input id="testNumber" placeholder="+14155550100"></label><button id="testSend" class="secondary">Send test</button><span id="testStatus"></span></div>
-        <div class="send-row"><button id="start" class="primary">Start sending</button><button id="pause" class="secondary" disabled>Pause</button><button id="stop" class="danger" disabled>Stop</button><div class="progress-wrap"><div class="progress"><div id="progressBar"></div></div><span id="progressText">0 / 0</span></div></div>
-      </section>
-      <section class="stats">
-        <div class="stat"><span>Sent</span><b id="sent">0</b></div><div class="stat"><span>Failed</span><b id="failed">0</b></div><div class="stat"><span>Remaining</span><b id="remaining">0</b></div><div class="stat"><span>Success rate</span><b id="successRate">0%</b></div>
-      </section>
-      <section class="card log-card"><div class="card-head"><h2>Activity</h2><button id="exportFailed" class="ghost small">Export failed</button></div><div id="log" class="log"></div></section>
+      <div class="hint">Your token is used locally by the app and is never shown in the activity log.</div>
     </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="card-head"><div><h2>Recipients</h2><p>International format · one per line</p></div><strong id="recipientCount">0</strong></div>
+        <textarea id="recipients" class="big-input" placeholder="14155550100\n14155550101\n14155550102"></textarea>
+        <div class="row"><label class="file-btn">Import TXT / CSV<input id="fileInput" type="file" accept=".txt,.csv"></label><button id="dedupe" class="secondary">Remove duplicates</button></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><div><h2>Message</h2><p>Keep your message clear and compliant.</p></div><strong id="charCount">0</strong></div>
+        <textarea id="message" class="big-input message" maxlength="1600" placeholder="Write your SMS message..."></textarea>
+        <div class="preview"><span>Preview</span><b id="previewText">Your message will appear here.</b></div>
+      </section>
+    </div>
+
+    <section class="card campaign">
+      <div class="campaign-top">
+        <div class="test"><label>Test number<input id="testNumber" placeholder="14155550100"></label><button id="testSend" class="secondary">Send test</button><span id="testStatus"></span></div>
+        <label class="delay">Delay (ms)<input id="delay" type="number" min="250" value="500"></label>
+      </div>
+      <div class="send-row">
+        <button id="start" class="primary">Send Campaign</button>
+        <button id="pause" class="secondary" disabled>Pause</button>
+        <button id="stop" class="danger" disabled>Stop</button>
+        <div class="progress-wrap"><div class="progress"><div id="progressBar"></div></div><span id="progressText">0 / 0</span></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>Sent</span><b id="sent">0</b></div>
+      <div class="stat"><span>Failed</span><b id="failed">0</b></div>
+      <div class="stat"><span>Remaining</span><b id="remaining">0</b></div>
+      <div class="stat"><span>Success rate</span><b id="successRate">0%</b></div>
+    </section>
+
+    <section class="card log-card">
+      <div class="card-head"><div><h2>Activity</h2><p>Live campaign results</p></div><button id="exportFailed" class="ghost small">Export failed</button></div>
+      <div id="log" class="log"><div class="empty">Ready when you are.</div></div>
+    </section>
+    <p class="footer-note">Use Maine SMS API Sender only for recipients who have authorized your messages and follow MoceanAPI rules and applicable messaging laws.</p>
   </main>
   <script src="app.js"></script>
 </body>
