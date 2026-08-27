@@ -1,26 +1,29 @@
-# SMS API Sender
+# Maine SMS API Sender
 
-A simple Windows desktop application for sending SMS through a user's own REST API. The app is provider-agnostic: the user supplies the HTTPS endpoint, authentication, request field names, message and recipient list.
+A simple Windows desktop SMS sender built with Electron and the official MoceanAPI Node.js SDK.
 
-## Features
+## What it does
 
-- Generic HTTPS REST API support (POST, PUT, PATCH)
-- Bearer token or custom API-key header authentication
-- JSON or form-urlencoded request bodies
-- Custom recipient/message/sender field names
-- Extra JSON fields
-- TXT/CSV recipient import
+- Clean, simple Maine SMS API Sender interface
+- MoceanAPI Token + Company / Sender Name only
+- TXT / CSV recipient import
 - Duplicate removal
-- Test send
-- Bulk sending with configurable delay/rate control
-- Pause, resume and stop
-- Sent/failed/remaining counters
-- Export failed recipients
-- Local profile storage (credentials are kept on the local machine and are never committed by the app)
+- Test SMS
+- Bulk campaign sending with a configurable minimum delay
+- Pause / Resume / Stop
+- Sent / Failed / Remaining / Success Rate counters
+- Live activity log
+- Export failed numbers
+- International phone-number normalization
+- Credentials are kept in memory during the session and are not written to the repository
+
+## Requirements
+
+- Windows 10/11
+- Node.js 20+
+- A MoceanAPI account and API Token
 
 ## Run locally
-
-Install Node.js 20+ and then:
 
 ```bash
 npm install
@@ -33,16 +36,20 @@ npm start
 npm run dist
 ```
 
-The generated installer is placed in `dist/`.
+The installer will be created in `dist/`.
 
-## Request example
+## MoceanAPI setup
 
-For an API expecting:
+The application uses MoceanAPI's Node.js SDK and sends the standard SMS fields automatically:
 
-```json
-{"to":"+14155550100","message":"Hello"}
-```
+- `mocean-from`
+- `mocean-to`
+- `mocean-text`
 
-use API URL = your provider endpoint, method = POST, content type = JSON, recipient field = `to`, message field = `message`.
+You only enter your MoceanAPI Token and Company / Sender Name in the app. No API URL, headers, field mapping, or API secret are required for the current token-based setup.
 
-The application intentionally does not contain a provider API key or a hard-coded SMS service. Users are responsible for authorization, consent, provider terms, rate limits, and applicable messaging laws.
+For US messaging, use an approved Mocean sender/number and follow Mocean's registration and content requirements.
+
+## Responsible use
+
+Send only to recipients who have authorized your messages. Follow MoceanAPI terms, carrier requirements, applicable privacy/telemarketing laws, and local messaging rules. This project does not bypass carrier filtering, registration, or provider restrictions.
