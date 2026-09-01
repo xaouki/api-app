@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gig Factory - generate Fiverr gig drafts quickly." />
+  <title>Gig Factory — Fiverr Gig Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">FIVERR WORKFLOW</span>
+        <h1>Gig Factory</h1>
+        <p>Generate polished Fiverr gig drafts in seconds.</p>
+      </div>
+      <span class="badge">FREE / LOCAL</span>
+    </header>
+
+    <section class="grid">
+      <aside class="panel controls">
+        <h2>Generator</h2>
+        <label>Category
+          <select id="category">
+            <option>Web Development</option>
+            <option>AI Websites</option>
+            <option>SaaS</option>
+            <option>Landing Pages</option>
+            <option>Chrome Extensions</option>
+            <option>API Integration</option>
+            <option>Android Apps</option>
+          </select>
+        </label>
+        <label>Number of gigs
+          <input id="count" type="number" min="1" max="20" value="5" />
+        </label>
+        <label>Target buyer
+          <input id="buyer" type="text" value="startups and small businesses" />
+        </label>
+        <label>Price range
+          <div class="two"><input id="minPrice" type="number" value="25" min="5" /><input id="maxPrice" type="number" value="150" min="10" /></div>
+        </label>
+        <button id="generate" class="primary">✨ Generate Gigs</button>
+        <button id="clear" class="secondary">Clear</button>
+        <p class="note">The tool prepares drafts for manual Fiverr publishing. It does not automate clicks or publishing on Fiverr.</p>
+      </aside>
+
+      <section class="panel output">
+        <div class="output-head"><div><h2>Generated gigs</h2><span id="status">Ready</span></div><button id="export" class="secondary">Export JSON</button></div>
+        <div id="results" class="results empty"><div><strong>No gigs yet.</strong><p>Choose a category and click Generate Gigs.</p></div></div>
+      </section>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
