@@ -3,25 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Gig Factory - generate Fiverr gig drafts quickly." />
-  <title>Gig Factory — Fiverr Gig Generator</title>
+  <meta name="description" content="Fiverr Gig Factory — generate Fiverr gig ideas quickly." />
+  <title>Fiverr Gig Factory</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="app">
-    <header class="topbar">
-      <div>
-        <span class="eyebrow">FIVERR WORKFLOW</span>
-        <h1>Gig Factory</h1>
-        <p>Generate polished Fiverr gig drafts in seconds.</p>
-      </div>
-      <span class="badge">FREE / LOCAL</span>
-    </header>
+  <main class="shell">
+    <section class="card">
+      <header class="header">
+        <h1>Fiverr Gig Factory</h1>
+      </header>
 
-    <section class="grid">
-      <aside class="panel controls">
-        <h2>Generator</h2>
-        <label>Category
+      <div class="settings">
+        <label>
+          <span>Category:</span>
           <select id="category">
             <option>Web Development</option>
             <option>AI Websites</option>
@@ -32,26 +27,45 @@
             <option>Android Apps</option>
           </select>
         </label>
-        <label>Number of gigs
-          <input id="count" type="number" min="1" max="20" value="5" />
-        </label>
-        <label>Target buyer
-          <input id="buyer" type="text" value="startups and small businesses" />
-        </label>
-        <label>Price range
-          <div class="two"><input id="minPrice" type="number" value="25" min="5" /><input id="maxPrice" type="number" value="150" min="10" /></div>
-        </label>
-        <button id="generate" class="primary">✨ Generate Gigs</button>
-        <button id="clear" class="secondary">Clear</button>
-        <p class="note">The tool prepares drafts for manual Fiverr publishing. It does not automate clicks or publishing on Fiverr.</p>
-      </aside>
 
-      <section class="panel output">
-        <div class="output-head"><div><h2>Generated gigs</h2><span id="status">Ready</span></div><button id="export" class="secondary">Export JSON</button></div>
-        <div id="results" class="results empty"><div><strong>No gigs yet.</strong><p>Choose a category and click Generate Gigs.</p></div></div>
+        <label>
+          <span>Number of Gigs:</span>
+          <input id="count" type="number" min="1" max="20" value="20" />
+        </label>
+
+        <label>
+          <span>Price range:</span>
+          <div class="price-row">
+            <input id="minPrice" type="number" value="25" min="5" aria-label="Minimum price" />
+            <span> - </span>
+            <input id="maxPrice" type="number" value="150" min="10" aria-label="Maximum price" />
+          </div>
+        </label>
+
+        <button id="generate" class="generate">GENERATE GIGS</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <section class="results-section">
+        <div class="result-title">
+          <span>Generated:</span>
+          <strong id="status">0</strong>
+          <button id="clear" class="text-btn">Clear</button>
+        </div>
+        <div id="results" class="results empty">
+          <p>Click <b>GENERATE GIGS</b> to create your list.</p>
+        </div>
       </section>
+
+      <div class="footer-actions">
+        <button id="export" class="export">Export JSON</button>
+      </div>
+
+      <p class="note">Draft generator only — prepare your Fiverr listings here, then publish them manually on Fiverr.</p>
     </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
