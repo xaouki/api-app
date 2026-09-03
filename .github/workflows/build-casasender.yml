@@ -1,8 +1,10 @@
 name: Build CasaSender EXE
+
 on:
   push:
-    branches: [ casasender-exe ]
+    branches: [casasender-exe]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: windows-latest
@@ -12,7 +14,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install dependencies
-        run: python -m pip install --upgrade pip; pip install -r casasender/requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r casasender/requirements.txt
       - name: Build EXE
         run: pyinstaller --noconfirm --clean --onefile --windowed --name CasaSender casasender/CasaSender.py
       - name: Upload EXE
