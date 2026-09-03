@@ -2,8 +2,11 @@ import threading
 import time
 import tkinter as tk
 from tkinter import messagebox
+from pathlib import Path
 import customtkinter as ctk
 from twilio.rest import Client
+
+APP_NAME = "Maine SMS Sender"
 
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
@@ -12,13 +15,14 @@ ctk.set_default_color_theme("blue")
 class SMSApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("SMS Bulk Sender - برنامج إرسال الرسائل")
+        self.title(APP_NAME)
         self.geometry("600x700")
         self.resizable(False, False)
+        self._set_window_icon()
 
         self.lbl_title = ctk.CTkLabel(
-            self, text="برنامج إرسال الرسائل الجماعية (SMS API)",
-            font=ctk.CTkFont(size=20, weight="bold"))
+            self, text="Maine SMS Sender",
+            font=ctk.CTkFont(size=22, weight="bold"))
         self.lbl_title.pack(pady=15)
 
         self.frame_api = ctk.CTkFrame(self)
@@ -51,6 +55,14 @@ class SMSApp(ctk.CTk):
 
         self.txt_log = ctk.CTkTextbox(self, height=150, state="disabled")
         self.txt_log.pack(padx=20, pady=5, fill="both", expand=True)
+
+    def _set_window_icon(self):
+        icon_path = Path(__file__).with_name("app.ico")
+        if icon_path.exists():
+            try:
+                self.iconbitmap(str(icon_path))
+            except tk.TclError:
+                pass
 
     def log(self, text):
         self.after(0, self._log_ui, text)
