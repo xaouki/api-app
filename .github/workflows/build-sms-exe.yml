@@ -1,0 +1,34 @@
+name: Build SMS Bulk Sender EXE
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'sms_bulk_sender.py'
+      - 'requirements-sms.txt'
+      - '.github/workflows/build-sms-exe.yml'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements-sms.txt
+
+      - name: Build EXE
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name SMS-Bulk-Sender sms_bulk_sender.py
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SMS-Bulk-Sender-Windows
+          path: dist/SMS-Bulk-Sender.exe
+          if-no-files-found: error
