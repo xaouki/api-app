@@ -1,0 +1,2 @@
+requests>=2.32.0,<3
+pyinstaller>=6.10.0,<7
